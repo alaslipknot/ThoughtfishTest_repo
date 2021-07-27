@@ -36,7 +36,7 @@ public class UiGenerator : MonoBehaviour {
     {
         uiElements = new RectTransform[totalPrefs];
         uiGenData = new UiGenData();
-        uiGenData.Init(IDFromDir(), totalPrefs);
+        uiGenData.Init(totalPrefs);
         for (int i = 0; i < totalPrefs; i++)
         {
             int prefId = Random.Range(0, uiPrefabs.Length);
@@ -51,50 +51,68 @@ public class UiGenerator : MonoBehaviour {
                 pos.x += uiElements[i - 1].sizeDelta.x + Random.Range(hSpacing.x, hSpacing.y);
             }
             uiElements[i].anchoredPosition = pos;
-            uiGenData.EnterData(i, prefId, pos);
+            uiGenData.prefabsId[i] = prefId;
+            uiGenData.pos[i] = pos;
         }
     }
 
     public void NewGenerator()
     {
+        ClearUi();
+        Generate();
+    }
+
+    public void GenerateFromLoadedFile()
+    {
+        ClearUi();
+        uiElements = new RectTransform[totalPrefs];
+        for (int i = 0; i < totalPrefs; i++)
+        {
+            int prefId = uiGenData.prefabsId[i];
+            uiElements[i] = Instantiate(uiPrefabs[prefId], parent).GetComponent<RectTransform>();
+            uiElements[i].anchoredPosition = uiGenData.pos[i];
+        }
+    }
+
+    public void ClearUi()
+    {
         foreach (RectTransform item in uiElements)
         {
             Destroy(item.gameObject);
         }
-        Generate();
     }
 
-    public void SaveCurrentLayout()
+    public void SaveCurrentLayout(string path)
     {
-        string path = Application.persistentDataPath + "/";
         string layout = JsonUtility.ToJson(uiGenData);
-        File.WriteAllText(path + uiGenData.id + ".json", layout);
-        Debug.Log("Saved data to " + Application.persistentDataPath + uiGenData.id + ".json");
+        File.WriteAllText(path, layout);
+        Debug.Log("Saved data to " + path);
+    }
+    public void LoadLayout(string fullPath)
+    {
+        print(fullPath);
+        string json = File.ReadAllText(fullPath);
+        uiGenData = JsonUtility.FromJson<UiGenData>(json);
+        GenerateFromLoadedFile();
     }
 
-    string IDFromDir()
-    {
-        string path = Application.persistentDataPath + "/";
-        DirectoryInfo dir = new System.IO.DirectoryInfo(path);
-        int count = dir.GetFiles().Length;
-        return "Lay_" + count;
-    }
+
+
 }
 
 [System.Serializable]
 public class UiGenData {
-    public string id;
     public int[] prefabsId;
-    public Vector3[] positions;
-    public void Init(string id, int size)
+    public Vector3[] pos;
+
+    public void Init(int size)
     {
-        this.id = id;
         prefabsId = new int[size];
-        positions = new Vector3[size];
+        pos = new Vector3[size];
     }
     public void EnterData(int i, int prefId, Vector3 p)
     {
         prefabsId[i] = prefId;
-        positions[i] = p;
+        pos[i] = p;
     }
 }

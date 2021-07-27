@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 6795881897408039005}
   - component: {fileID: 6795881897408039004}
   - component: {fileID: -6036553573717589282}
+  - component: {fileID: 48032610}
   m_Layer: 5
   m_Name: MainUiPrefab
   m_TagString: Untagged
@@ -296,3 +297,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaed6f8910aabde46b24e122b6455e13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &48032610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6795881897408039079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0083e56f512f6b49ba8de1c74c49abd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnLeftClick:
+    m_PersistentCalls:
+      m_Calls: []
+  OnRightClick:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHighLightBegin:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHighlightEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDragBegin:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDragEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDragging:
+    m_PersistentCalls:
+      m_Calls: []
