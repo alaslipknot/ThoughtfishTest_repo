@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿//ui left and right clicks events
+
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 public class Ui_Clickable : MonoBehaviour, IPointerClickHandler {

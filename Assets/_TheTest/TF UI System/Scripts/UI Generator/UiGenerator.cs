@@ -1,4 +1,9 @@
-﻿using UnityEngine;
+﻿//This class is responsible for Generating random ui elements 
+//From a given prefab list
+//Saving the ui layout to a json file
+//load a ui layout from a json file
+
+using UnityEngine;
 using System.IO;
 
 public class UiGenerator : MonoBehaviour {
@@ -20,7 +25,7 @@ public class UiGenerator : MonoBehaviour {
     #endregion
 
     public GameObject[] uiPrefabs;
-    RectTransform[] uiElements;
+    public RectTransform[] uiElements;
     public UiGenData uiGenData;
     public RectTransform parent;
     public int totalPrefs = 6;
@@ -29,7 +34,6 @@ public class UiGenerator : MonoBehaviour {
     private void Start()
     {
         Generate();
-        print(Application.persistentDataPath);
     }
 
     public void Generate()
@@ -54,6 +58,8 @@ public class UiGenerator : MonoBehaviour {
             uiGenData.prefabsId[i] = prefId;
             uiGenData.pos[i] = pos;
         }
+
+        GetComponent<UINavigator>().RefreshList();
     }
 
     public void NewGenerator()
@@ -72,6 +78,7 @@ public class UiGenerator : MonoBehaviour {
             uiElements[i] = Instantiate(uiPrefabs[prefId], parent).GetComponent<RectTransform>();
             uiElements[i].anchoredPosition = uiGenData.pos[i];
         }
+        GetComponent<UINavigator>().RefreshList();
     }
 
     public void ClearUi()

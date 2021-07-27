@@ -1,5 +1,8 @@
-﻿using UnityEngine;
+﻿//Recording controller class (start recording, save, load)
+
+using UnityEngine;
 using System.IO;
+using UnityEngine.UI;
 public class RecordManager : MonoBehaviour {
 
 
@@ -22,7 +25,7 @@ public class RecordManager : MonoBehaviour {
     public float actionTime;
     public bool isRecording;
     public bool isPlaying;
-    public float playSpeed = 10;
+    public InputField savingTxt, loadingTxt;
     public void StartRecording()
     {
         Debug.Log("Recording started");
@@ -39,6 +42,13 @@ public class RecordManager : MonoBehaviour {
 
     public void SaveRecording()
     {
+
+        if (savingTxt.text.Length == 0)
+        {
+            Debug.Log("Enter name!");
+            return;
+        }
+
         int uiCount = UiGenerator._instance.parent.childCount;
         Macro macro = new Macro();
         macro.actionSequences = new ActionSequence[uiCount];
@@ -52,7 +62,7 @@ public class RecordManager : MonoBehaviour {
         }
 
         string records = JsonUtility.ToJson(macro);
-        string path = FileManager._instance.recordPath + "Rec.json";
+        string path = FileManager._instance.recordPath + savingTxt.text + ".json";
         File.WriteAllText(path, records);
         Debug.Log("Saved data to " + path);
     }
@@ -60,11 +70,16 @@ public class RecordManager : MonoBehaviour {
 
     public void LoadAndPlayRecording()
     {
+        if (loadingTxt.text.Length == 0)
+        {
+            Debug.Log("Enter name!");
+            return;
+        }
+
         isPlaying = true;
-        string path = FileManager._instance.recordPath + "Rec.json";
+        string path = FileManager._instance.recordPath + loadingTxt.text + ".json";
         string json = File.ReadAllText(path);
         Macro macro = JsonUtility.FromJson<Macro>(json);
-        print(macro.actionSequences.Length);
 
         for (int i = 0; i < macro.actionSequences.Length; i++)
         {
@@ -76,9 +91,8 @@ public class RecordManager : MonoBehaviour {
             for (int j = 0; j < sequence.actions.Length; j++)
             {
                 recorder.recordedActions.Add(sequence.actions[j]);
-                
+
             }
-            //recorder.StartCoroutine(recorder.PlayActions());
             recorder.StartSequenceReplay();
         }
     }

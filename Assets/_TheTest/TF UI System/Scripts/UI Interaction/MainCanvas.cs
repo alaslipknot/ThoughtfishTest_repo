@@ -1,6 +1,7 @@
-﻿
+﻿//Main canvas reference
+//needed to access the scale factor when dragging
+
 using UnityEngine;
-using UnityEngine.UI;
 public class MainCanvas : MonoBehaviour {
 
     public Canvas canvas;

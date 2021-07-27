@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿//Ui Drag events
+
+
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 public class Ui_Draggable : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler {

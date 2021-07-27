@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿//Hold the recorded action list
+//Replay them
+//also contain various data classes to help save/load the records
+
+using UnityEngine;
 using System;
 using System.Collections.Generic;
 using System.Collections;
@@ -119,6 +123,10 @@ public class ActionRecorder : MonoBehaviour {
                 i++;
             }
         }
+        else
+        {
+            CanPlay = false;
+        }
         
     }
 
@@ -202,11 +210,12 @@ public class ActionRecorder : MonoBehaviour {
 
     #endregion
 
-    #region Save and Load
-
-    #endregion
+   
 
 }
+
+
+//Various Data class needed to save and load the Macros
 
 #region Data classes
 [Serializable]

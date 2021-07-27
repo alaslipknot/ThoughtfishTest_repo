@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿//Saving and load ui layout
+//with ui buttons and with keyboard shortcuts
+//also contain the main saving paths directory
+
+using UnityEngine;
 using System.IO;
 using UnityEngine.UI;
 public class FileManager : MonoBehaviour {
@@ -55,7 +59,6 @@ public class FileManager : MonoBehaviour {
 
     public void LoadFile()
     {
-        //string fullPath = layoutPath + "Layout_" + chosenFileId + ".json";
         UiGenerator._instance.LoadLayout(layoutFiles[chosenFileId]);
     }
 
